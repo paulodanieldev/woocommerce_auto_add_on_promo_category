@@ -1,0 +1,1 @@
+# woocommerce_auto_add_on_promo_category
