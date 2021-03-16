@@ -72,7 +72,7 @@ class WC_AAOPC {
     // QUANDO EDITA UM PRODUTO
     public static function ic_change_product_promo_category( $product_id ) {
         $aaopc_methods = new WC_Methods_AAOPC();
-        $aaopc_category_name_var = $aaopc_methods->change_product_promo_category( $product_id );
+        $aaopc_result_var = $aaopc_methods->change_product_promo_category( $product_id );
     }
 
 }

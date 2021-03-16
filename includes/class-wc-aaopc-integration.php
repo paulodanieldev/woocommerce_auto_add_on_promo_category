@@ -30,9 +30,9 @@ class WC_Integration_AAOPC extends WC_Integration {
 	public function init_form_fields() {
 		$this->form_fields = array(
 			'aaopc_promo_category_name' => array(
-				'title'             => __( 'Nome da categoria de promoções', 'aaopc-integration' ),
+				'title'             => __( 'Slug da categoria de promoções', 'aaopc-integration' ),
 				'type'              => 'text',
-				'label'             => __( 'Nome da categoria de promoções', 'aaopc-integration' ),
+				'label'             => __( 'Slug da categoria de promoções', 'aaopc-integration' ),
 				'default'           => '',
 				'description'       => __( 'Entre com o nome da categoria de promoções.', 'aaopc-integration' ),
 				'desc_tip'          => true
