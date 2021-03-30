@@ -30,16 +30,21 @@ class WC_Methods_AAOPC extends WC_Integration {
             return $product_id;
         }
     
-        //verifica se o produto está publicado e se existe a cariável _sale_price
-        if( get_post_status( $product_id ) == 'publish' && isset($_POST['_sale_price']) ) {
-            $sale_price = $_POST['_sale_price'];
-
-            $promo_cat = !empty($this->aaopc_promo_category_name) ? $this->aaopc_promo_category_name : 'on_sale';
-
-            if( $sale_price >= 0 && ! has_term( $promo_cat, 'product_cat', $product_id ) ){
-                wp_set_object_terms($product_id, $promo_cat, 'product_cat', true );
-            }else if( $sale_price <= 0 && has_term( $promo_cat, 'product_cat', $product_id ) ){
-                wp_remove_object_terms($product_id, $promo_cat, 'product_cat');
+        //verifica se o produto está publicado e se existe a variável _sale_price
+        if( get_post_status( $product_id ) == 'publish') {
+            $product = wc_get_product( $product_id );
+            $regular_price = empty($product->get_regular_price()) ? 0 : (float)$product->get_regular_price();
+            $sale_price = empty($product->get_sale_price()) ? 0 : (float)$product->get_sale_price();
+            
+            if (!empty($this->aaopc_promo_category_name)){
+                $promo_cat = $this->aaopc_promo_category_name;
+                if ($sale_price != $regular_price){
+                    if( $sale_price > 0 && ! has_term( $promo_cat, 'product_cat', $product_id ) ){
+                        wp_set_object_terms($product_id, $promo_cat, 'product_cat', true );
+                    }else if( $sale_price <= 0 && has_term( $promo_cat, 'product_cat', $product_id ) ){
+                        wp_remove_object_terms($product_id, $promo_cat, 'product_cat');
+                    }
+                }
             }
         }
     }

@@ -24,9 +24,8 @@ class WC_AAOPC {
 			add_filter( 'woocommerce_integrations', array( __CLASS__, 'add_integration' ) );
 
             // muda categoria ao editar um produto
-            add_action('save_post_product', array( __CLASS__, 'ic_change_product_promo_category'));
-            
-        } else {
+			add_action( 'woocommerce_update_product', array( __CLASS__, 'ic_change_product_promo_category'), 11, 1 );
+		} else {
 			add_action( 'admin_notices', array( __CLASS__, array( __CLASS__, 'woocommerce_missing_notice' )) );
 		}
 	}
@@ -70,10 +69,10 @@ class WC_AAOPC {
 	}
 
     // QUANDO EDITA UM PRODUTO
-    public static function ic_change_product_promo_category( $product_id ) {
-        $aaopc_methods = new WC_Methods_AAOPC();
-        $aaopc_result_var = $aaopc_methods->change_product_promo_category( $product_id );
-    }
+	function ic_change_product_promo_category( $product_id ) {
+		$aaopc_methods = new WC_Methods_AAOPC();
+		$aaopc_result_var = $aaopc_methods->change_product_promo_category( $product_id );
+	}
 
 }
 
